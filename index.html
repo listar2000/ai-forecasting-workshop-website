@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Workshop on AI Forecasting | ICLR 2026</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap');
+
+        :root {
+            --color-cream: #faf7f2;
+            --color-cream-dark: #f5f0e8;
+            --color-ink: #2c2416;
+            --color-ink-light: #4a3f2f;
+            --color-accent: #6b5c4c;
+            --color-border: #3d3425;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--color-cream);
+            font-family: 'Source Serif 4', Georgia, serif;
+            color: var(--color-ink);
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--color-ink);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .navbar-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0.875rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.1rem;
+            color: var(--color-cream);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .navbar-link {
+            color: var(--color-cream);
+            text-decoration: none;
+            font-size: 0.875rem;
+            opacity: 0.85;
+            transition: opacity 0.2s;
+        }
+
+        .navbar-link:hover {
+            opacity: 1;
+        }
+
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-cream);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--color-ink);
+                flex-direction: column;
+                padding: 1rem 1.5rem;
+                gap: 0.75rem;
+                border-top: 1px solid var(--color-border);
+            }
+
+            .navbar-links.show {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 6rem;
+            padding-bottom: 3rem;
+            border-bottom: 2px solid var(--color-border);
+            text-align: center;
+            background: linear-gradient(180deg, var(--color-cream-dark) 0%, var(--color-cream) 100%);
+        }
+
+        .hero-subtitle {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-size: 2.75rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.875rem;
+            }
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 1rem;
+            color: var(--color-ink-light);
+        }
+
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--color-border);
+            display: inline-block;
+        }
+
+        .section-intro p {
+            margin-bottom: 1.25rem;
+            text-align: justify;
+        }
+
+        /* Content Cards/Boxes */
+        .content-box {
+            border: 1px solid var(--color-border);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: var(--color-cream);
+        }
+
+        .content-box h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .content-box p {
+            margin-bottom: 0.75rem;
+        }
+
+        .content-box ul {
+            margin-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid var(--color-border);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: var(--color-ink);
+            color: var(--color-cream);
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: var(--color-cream-dark);
+        }
+
+        /* Profile Cards */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .profile-card {
+            border: 1px solid var(--color-border);
+            padding: 1.5rem;
+            background-color: var(--color-cream);
+        }
+
+        .profile-header {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--color-border);
+            background-color: var(--color-cream-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 2rem;
+            color: var(--color-accent);
+        }
+
+        .profile-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-info p {
+            font-size: 0.875rem;
+            color: var(--color-ink-light);
+            line-height: 1.4;
+        }
+
+        .profile-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Expandable Bio */
+        .bio-toggle {
+            background: none;
+            border: none;
+            color: var(--color-ink);
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 0.875rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 0;
+            border-top: 1px solid var(--color-border);
+            width: 100%;
+            margin-top: 0.75rem;
+        }
+
+        .bio-toggle:hover {
+            color: var(--color-accent);
+        }
+
+        .bio-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .bio-content.expanded {
+            max-height: 500px;
+        }
+
+        .bio-content p {
+            padding-top: 0.75rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--color-ink-light);
+        }
+
+        .chevron-icon {
+            transition: transform 0.3s ease;
+            width: 16px;
+            height: 16px;
+        }
+
+        .chevron-icon.expanded {
+            transform: rotate(180deg);
+        }
+
+        /* Topics List */
+        .topics-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .topics-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--color-border);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .topics-list li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        .topics-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Subsection */
+        .subsection {
+            margin-top: 2rem;
+        }
+
+        .subsection-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--color-ink);
+        }
+
+        /* Links */
+        a {
+            color: var(--color-ink);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-ink);
+            color: var(--color-cream);
+            padding: 2rem 0;
+            margin-top: 0;
+        }
+
+        footer a {
+            color: var(--color-cream);
+            opacity: 0.85;
+        }
+
+        footer a:hover {
+            opacity: 1;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            text-decoration: none;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--color-border);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--color-ink);
+            color: var(--color-cream);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-ink-light);
+            color: var(--color-cream);
+        }
+
+        /* Utility */
+        .text-muted {
+            color: var(--color-ink-light);
+        }
+
+        .text-small {
+            font-size: 0.875rem;
+        }
+
+        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 1rem; }
+
+        /* Lucide icons */
+        [data-lucide] {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Schedule highlight */
+        .schedule-break {
+            background-color: var(--color-cream-dark);
+            font-style: italic;
+        }
+
+        /* Organizer compact grid */
+        .organizer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        .organizer-card {
+            border: 1px solid var(--color-border);
+            padding: 1.25rem;
+            background-color: var(--color-cream);
+            text-align: center;
+        }
+
+        .organizer-card .profile-image {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 0.75rem;
+        }
+
+        .organizer-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .organizer-card p {
+            font-size: 0.8rem;
+            color: var(--color-ink-light);
+            line-height: 1.4;
+        }
+
+        /* Invited Speaker larger cards */
+        .speaker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="navbar-brand">AI Forecasting Workshop</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="navbar-links" id="navLinks">
+                <a href="#about" class="navbar-link">About</a>
+                <a href="#cfp" class="navbar-link">Call for Papers</a>
+                <a href="#schedule" class="navbar-link">Schedule</a>
+                <a href="#speakers" class="navbar-link">Speakers</a>
+                <a href="#organizers" class="navbar-link">Organizers</a>
+                <a href="#contact" class="navbar-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <p class="hero-subtitle">ICLR 2026 Workshop</p>
+            <h1 class="hero-title">Forecasting as a New Frontier<br/>of Intelligence</h1>
+            <div class="hero-meta">
+                <span class="hero-meta-item">
+                    <i data-lucide="calendar"></i>
+                    <span>May 2026</span>
+                </span>
+                <span class="hero-meta-item">
+                    <i data-lucide="map-pin"></i>
+                    <span>Singapore</span>
+                </span>
+                <span class="hero-meta-item">
+                    <i data-lucide="users"></i>
+                    <span>Hybrid Format</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">About the Workshop</h2>
+                <div class="section-intro">
+                    <p>
+                        Forecasting has long been a central problem in machine learning, with mature traditions in time-series analysis, online learning, and conformal prediction. Yet recent advances in foundation models raise a qualitatively new question: can general-purpose AI systems reliably anticipate future events across diverse real-world domains?
+                    </p>
+                    <p>
+                        We argue that this ability—forecasting in open domains under uncertainty—constitutes a new frontier of machine intelligence. This workshop proposes to study forecasting not merely as a predictive task, but as a cognitive capability we term <em>mechanical prospection</em>: the ability of an artificial system to systematically construct, evaluate, and update probabilistic beliefs over future events using algorithmic reasoning and real-world feedback.
+                    </p>
+                    <p>
+                        Mechanical prospection requires calibrated uncertainty estimation, causal and temporal reasoning, critical assessment of information credibility, and evaluation grounded in realized outcomes rather than retrospective benchmarks.
+                    </p>
+                    <p>
+                        The workshop aims to bring together researchers from machine learning, statistics, economics, and decision sciences to establish forecasting as a first-class object of study in ML. Through invited talks, contributed posters, and panel discussions, we will explore new methodologies, benchmarks, and evaluation paradigms for forecasting-capable AI systems.
+                    </p>
+                </div>
+
+                <div class="content-box mt-2">
+                    <h3>Social Impact</h3>
+                    <p>
+                        Reliable forecasting under uncertainty is central to many high-stakes societal domains, including finance, public policy, public health, climate science, and national security. Improved AI forecasting systems could support better decision-making, enhance market efficiency, and improve the allocation of scarce resources.
+                    </p>
+                    <p>
+                        However, overconfident or poorly calibrated forecasts may amplify misinformation or introduce systemic risks. By emphasizing uncertainty, calibration, and outcome-grounded evaluation, this workshop promotes responsible development and deployment of forecasting-capable AI systems.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call for Papers Section -->
+        <section id="cfp">
+            <div class="container">
+                <h2 class="section-title">Call for Papers</h2>
+                
+                <div class="section-intro">
+                    <p>
+                        We invite submissions on all aspects of AI forecasting, from methodological advances to benchmark design to applications in real-world domains. Papers should be submitted via OpenReview and will undergo peer review by our program committee.
+                    </p>
+                    <p>
+                        Accepted papers will be presented as posters during the workshop, with selected papers invited for oral presentations. A best paper award will be given at the closing session.
+                    </p>
+                </div>
+
+                <!-- Key Dates -->
+                <div class="subsection">
+                    <h3 class="subsection-title">Key Dates</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Submission Portal Opens</td>
+                                <td>February 15, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>Paper Submission Deadline</td>
+                                <td>March 15, 2026 (AoE)</td>
+                            </tr>
+                            <tr>
+                                <td>Author Notification</td>
+                                <td>April 10, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>Camera-Ready Deadline</td>
+                                <td>April 25, 2026</td>
+                            </tr>
+                            <tr>
+                                <td>Workshop Date</td>
+                                <td>May 2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Topics -->
+                <div class="subsection">
+                    <h3 class="subsection-title">Topics of Interest</h3>
+                    <p class="mb-1">The workshop will cover (but is not limited to) the following topics:</p>
+                    <ul class="topics-list">
+                        <li>Forecasting via generative/foundation models and agentic design (e.g., forecasting agents, LLM-as-a-Prophet)</li>
+                        <li>Evaluation protocols and metrics for forecasting (e.g., forecasting benchmarks, automated forecasting event generation)</li>
+                        <li>Reasoning paradigms for forecasting tasks (e.g., probabilistic reasoning, calibration, uncertainty quantification, causal inference)</li>
+                        <li>Information retrieval and source search for forecasting (e.g., agentic search architecture, credibility assessment, evidence aggregation)</li>
+                        <li>The incentives and economics of forecasting (e.g., prediction markets, calibration)</li>
+                        <li>The learning and decision theory of forecasting (e.g., scoring rules, online learning)</li>
+                        <li>Social, ethical, and governance issues in AI-driven forecasting</li>
+                    </ul>
+                </div>
+
+                <!-- Submission Guidelines -->
+                <div class="subsection">
+                    <h3 class="subsection-title">Submission Guidelines</h3>
+                    <div class="content-box">
+                        <p><strong>Format:</strong> Submissions should be up to 4 pages (excluding references and appendix) using the ICLR 2026 template.</p>
+                        <p><strong>Anonymity:</strong> All submissions should be anonymized for double-blind review.</p>
+                        <p><strong>Dual Submission:</strong> We welcome submissions of work that has been previously published or is under review elsewhere, with proper disclosure.</p>
+                        <p><strong>Platform:</strong> Submissions will be handled through OpenReview.</p>
+                        <p style="margin-bottom: 0;"><a href="#" class="btn btn-primary" style="margin-top: 0.75rem;">Submit via OpenReview</a></p>
+                    </div>
+                </div>
+
+                <!-- Hackathon -->
+                <div class="subsection">
+                    <h3 class="subsection-title">Forecasting Agent Hackathon</h3>
+                    <div class="content-box">
+                        <p>
+                            To encourage broad participation and interaction between workshop participants, we plan to host a hackathon before the workshop. Participants will build forecasting agents and compete on the Prophet Arena leaderboard.
+                        </p>
+                        <p style="margin-bottom: 0;">
+                            More details on registration, logistics, and prizes will be announced soon.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section id="schedule">
+            <div class="container">
+                <h2 class="section-title">Workshop Schedule</h2>
+                <p class="mb-1">All times are in local Singapore time (SGT).</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 140px;">Time</th>
+                            <th>Event</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>08:00 – 08:10</td>
+                            <td>Opening Remarks</td>
+                        </tr>
+                        <tr>
+                            <td>08:15 – 09:00</td>
+                            <td>Invited Talk #1</td>
+                        </tr>
+                        <tr>
+                            <td>09:00 – 09:45</td>
+                            <td>Invited Talk #2</td>
+                        </tr>
+                        <tr>
+                            <td>09:45 – 10:15</td>
+                            <td>Oral Presentation #1</td>
+                        </tr>
+                        <tr class="schedule-break">
+                            <td>10:15 – 10:45</td>
+                            <td>Break / Meet-and-Greet</td>
+                        </tr>
+                        <tr>
+                            <td>10:45 – 11:30</td>
+                            <td>Invited Talk #3</td>
+                        </tr>
+                        <tr>
+                            <td>11:30 – 12:15</td>
+                            <td>Invited Talk #4</td>
+                        </tr>
+                        <tr class="schedule-break">
+                            <td>12:15 – 13:30</td>
+                            <td>Lunch / Poster Session / Spotlight Presentations</td>
+                        </tr>
+                        <tr>
+                            <td>13:30 – 14:15</td>
+                            <td>Invited Talk #5</td>
+                        </tr>
+                        <tr>
+                            <td>14:15 – 14:45</td>
+                            <td>Oral Presentation #2</td>
+                        </tr>
+                        <tr>
+                            <td>14:45 – 15:30</td>
+                            <td>Invited Talk #6</td>
+                        </tr>
+                        <tr class="schedule-break">
+                            <td>15:30 – 16:00</td>
+                            <td>Break / Meet-and-Greet</td>
+                        </tr>
+                        <tr>
+                            <td>16:00 – 16:50</td>
+                            <td>Panel Discussion (All Invited Speakers)</td>
+                        </tr>
+                        <tr>
+                            <td>16:50 – 17:00</td>
+                            <td>Closing Remarks / Best Paper Award</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Invited Speakers Section -->
+        <section id="speakers">
+            <div class="container">
+                <h2 class="section-title">Invited Speakers</h2>
+                <p>Distinguished researchers from academia and industry will share their perspectives on AI forecasting.</p>
+                
+                <div class="speaker-grid">
+                    <!-- Speaker 1 -->
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-image">
+                                <i data-lucide="user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3>Rohan Alur</h3>
+                                <p>Bridgewater AIA</p>
+                            </div>
+                        </div>
+                        <button class="bio-toggle" onclick="toggleBio(this)">
+                            <i data-lucide="chevron-down" class="chevron-icon"></i>
+                            <span>View Bio</span>
+                        </button>
+                        <div class="bio-content">
+                            <p>Speaker biography coming soon.</p>
+                        </div>
+                    </div>
+
+                    <!-- Speaker 2 -->
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-image">
+                                <i data-lucide="user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3>Philip E. Tetlock</h3>
+                                <p>Good Judgement Project</p>
+                            </div>
+                        </div>
+                        <button class="bio-toggle" onclick="toggleBio(this)">
+                            <i data-lucide="chevron-down" class="chevron-icon"></i>
+                            <span>View Bio</span>
+                        </button>
+                        <div class="bio-content">
+                            <p>Philip Tetlock is a renowned expert on forecasting and decision-making, author of "Superforecasting" and co-principal investigator of the Good Judgment Project.</p>
+                        </div>
+                    </div>
+
+                    <!-- Speaker 3 -->
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-image">
+                                <i data-lucide="user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3>Moritz Hardt</h3>
+                                <p>Max Planck Institute</p>
+                            </div>
+                        </div>
+                        <button class="bio-toggle" onclick="toggleBio(this)">
+                            <i data-lucide="chevron-down" class="chevron-icon"></i>
+                            <span>View Bio</span>
+                        </button>
+                        <div class="bio-content">
+                            <p>Moritz Hardt is a director at the Max Planck Institute for Intelligent Systems and a leading researcher in machine learning theory, fairness, and robustness.</p>
+                        </div>
+                    </div>
+
+                    <!-- Speaker 4 -->
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-image">
+                                <i data-lucide="user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3>Yoon Kim</h3>
+                                <p>MIT</p>
+                            </div>
+                        </div>
+                        <button class="bio-toggle" onclick="toggleBio(this)">
+                            <i data-lucide="chevron-down" class="chevron-icon"></i>
+                            <span>View Bio</span>
+                        </button>
+                        <div class="bio-content">
+                            <p>Yoon Kim is an assistant professor at MIT working on natural language processing and deep learning.</p>
+                        </div>
+                    </div>
+
+                    <!-- Speaker 5 -->
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-image">
+                                <i data-lucide="user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3>James Zou</h3>
+                                <p>Stanford University</p>
+                            </div>
+                        </div>
+                        <button class="bio-toggle" onclick="toggleBio(this)">
+                            <i data-lucide="chevron-down" class="chevron-icon"></i>
+                            <span>View Bio</span>
+                        </button>
+                        <div class="bio-content">
+                            <p>James Zou is an assistant professor of biomedical data science at Stanford, known for his work on machine learning and computational biology.</p>
+                        </div>
+                    </div>
+
+                    <!-- Speaker 6 -->
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-image">
+                                <i data-lucide="user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3>Robin Hanson</h3>
+                                <p>George Mason University</p>
+                            </div>
+                        </div>
+                        <button class="bio-toggle" onclick="toggleBio(this)">
+                            <i data-lucide="chevron-down" class="chevron-icon"></i>
+                            <span>View Bio</span>
+                        </button>
+                        <div class="bio-content">
+                            <p>Robin Hanson is an economist and researcher known for his work on prediction markets and futarchy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-muted text-small mt-2">* Additional speakers to be announced.</p>
+            </div>
+        </section>
+
+        <!-- Organizers Section -->
+        <section id="organizers">
+            <div class="container">
+                <h2 class="section-title">Organizing Committee</h2>
+                
+                <div class="organizer-grid">
+                    <!-- Organizer 1 -->
+                    <div class="organizer-card">
+                        <div class="profile-image">
+                            <i data-lucide="user"></i>
+                        </div>
+                        <h3>Haifeng Xu</h3>
+                        <p>Assistant Professor<br/>University of Chicago</p>
+                    </div>
+
+                    <!-- Organizer 2 -->
+                    <div class="organizer-card">
+                        <div class="profile-image">
+                            <i data-lucide="user"></i>
+                        </div>
+                        <h3>Jibang Wu</h3>
+                        <p>Assistant Professor<br/>New York University, Shanghai</p>
+                    </div>
+
+                    <!-- Organizer 3 -->
+                    <div class="organizer-card">
+                        <div class="profile-image">
+                            <i data-lucide="user"></i>
+                        </div>
+                        <h3>Ruslan Salakhutdinov</h3>
+                        <p>Professor<br/>Carnegie Mellon University</p>
+                    </div>
+
+                    <!-- Organizer 4 -->
+                    <div class="organizer-card">
+                        <div class="profile-image">
+                            <i data-lucide="user"></i>
+                        </div>
+                        <h3>Star Li</h3>
+                        <p>PhD Student<br/>University of Chicago</p>
+                    </div>
+
+                    <!-- Organizer 5 -->
+                    <div class="organizer-card">
+                        <div class="profile-image">
+                            <i data-lucide="user"></i>
+                        </div>
+                        <h3>Ezra Karger</h3>
+                        <p>Director of Research<br/>Forecasting Research Institute</p>
+                    </div>
+
+                    <!-- Organizer 6 -->
+                    <div class="organizer-card">
+                        <div class="profile-image">
+                            <i data-lucide="user"></i>
+                        </div>
+                        <h3>Nicolai Ouporov</h3>
+                        <p>Co-founder &amp; CEO<br/>Fleet AI</p>
+                    </div>
+
+                    <!-- Organizer 7 -->
+                    <div class="organizer-card">
+                        <div class="profile-image">
+                            <i data-lucide="user"></i>
+                        </div>
+                        <h3>Simon Mahns</h3>
+                        <p>Researcher<br/>Axiom Math</p>
+                    </div>
+                </div>
+
+                <div class="content-box mt-2">
+                    <p class="text-small" style="margin-bottom: 0;">
+                        <strong>Contact:</strong> For all communications regarding the workshop, please contact 
+                        <a href="mailto:wujibang@nyu.edu">Jibang Wu</a> or 
+                        <a href="mailto:haifengxu@uchicago.edu">Haifeng Xu</a>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" style="border-bottom: none;">
+            <div class="container">
+                <h2 class="section-title">Contact &amp; Social Media</h2>
+                <div class="content-box">
+                    <p><strong>General Inquiries:</strong> <a href="mailto:haifengxu@uchicago.edu">haifengxu@uchicago.edu</a></p>
+                    <p><strong>Submission Questions:</strong> <a href="mailto:wujibang@nyu.edu">wujibang@nyu.edu</a></p>
+                    <p style="margin-bottom: 0;"><strong>Follow us:</strong> Updates and announcements will be posted on this website and through the organizers' channels.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p style="font-family: 'Libre Baskerville', serif; margin-bottom: 0.25rem;">Workshop on AI Forecasting</p>
+                    <p class="text-small" style="opacity: 0.7;">ICLR 2026 · Singapore</p>
+                </div>
+                <div class="footer-links">
+                    <a href="mailto:haifengxu@uchicago.edu" class="footer-link">
+                        <i data-lucide="mail"></i>
+                        <span>Email</span>
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i data-lucide="twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+
+        // Bio toggle
+        function toggleBio(button) {
+            const card = button.closest('.profile-card');
+            const content = card.querySelector('.bio-content');
+            const chevron = button.querySelector('.chevron-icon');
+            const span = button.querySelector('span');
+            
+            content.classList.toggle('expanded');
+            chevron.classList.toggle('expanded');
+            
+            if (content.classList.contains('expanded')) {
+                span.textContent = 'Hide Bio';
+            } else {
+                span.textContent = 'View Bio';
+            }
+        }
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.navbar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('show');
+            });
+        });
+
+        // Smooth scroll offset for fixed navbar
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 70;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -3,512 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Workshop on AI Forecasting | ICLR 2026</title>
+    <title>Workshop on AI Forecasting | ICML 2026</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" />
+    <link href="styles.css" rel="stylesheet" />
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap');
-
-        :root {
-            --color-cream: #faf7f2;
-            --color-cream-dark: #f5f0e8;
-            --color-ink: #2c2416;
-            --color-ink-light: #4a3f2f;
-            --color-accent: #6b5c4c;
-            --color-border: #3d3425;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--color-cream);
-            font-family: 'Source Serif 4', Georgia, serif;
-            color: var(--color-ink);
-            line-height: 1.7;
-            font-size: 17px;
-        }
-
-        h1, h2, h3, h4, h5 {
-            font-family: 'Libre Baskerville', serif;
-            font-weight: 700;
-            line-height: 1.3;
-        }
-
-        /* Navigation */
-        .navbar {
-            background-color: var(--color-ink);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .navbar-inner {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0.875rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar-brand {
-            font-family: 'Libre Baskerville', serif;
-            font-size: 1.1rem;
-            color: var(--color-cream);
-            text-decoration: none;
-            letter-spacing: -0.02em;
-        }
-
-        .navbar-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .navbar-link {
-            color: var(--color-cream);
-            text-decoration: none;
-            font-size: 0.875rem;
-            opacity: 0.85;
-            transition: opacity 0.2s;
-        }
-
-        .navbar-link:hover {
-            opacity: 1;
-        }
-
-        /* Mobile menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--color-cream);
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .navbar-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: var(--color-ink);
-                flex-direction: column;
-                padding: 1rem 1.5rem;
-                gap: 0.75rem;
-                border-top: 1px solid var(--color-border);
-            }
-
-            .navbar-links.show {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-        }
-
-        /* Container */
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding-top: 6rem;
-            padding-bottom: 3rem;
-            border-bottom: 2px solid var(--color-border);
-            text-align: center;
-            background: linear-gradient(180deg, var(--color-cream-dark) 0%, var(--color-cream) 100%);
-        }
-
-        .hero-subtitle {
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--color-accent);
-            margin-bottom: 1rem;
-        }
-
-        .hero-title {
-            font-size: 2.75rem;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 1.875rem;
-            }
-        }
-
-        .hero-meta {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            font-size: 1rem;
-            color: var(--color-ink-light);
-        }
-
-        .hero-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Sections */
-        section {
-            padding: 3rem 0;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .section-title {
-            font-size: 1.75rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid var(--color-border);
-            display: inline-block;
-        }
-
-        .section-intro p {
-            margin-bottom: 1.25rem;
-            text-align: justify;
-        }
-
-        /* Content Cards/Boxes */
-        .content-box {
-            border: 1px solid var(--color-border);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            background-color: var(--color-cream);
-        }
-
-        .content-box h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .content-box p {
-            margin-bottom: 0.75rem;
-        }
-
-        .content-box ul {
-            margin-left: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .content-box li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Tables */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            font-size: 0.95rem;
-        }
-
-        .data-table th,
-        .data-table td {
-            border: 1px solid var(--color-border);
-            padding: 0.75rem 1rem;
-            text-align: left;
-        }
-
-        .data-table th {
-            background-color: var(--color-ink);
-            color: var(--color-cream);
-            font-family: 'Libre Baskerville', serif;
-            font-weight: 700;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .data-table tr:nth-child(even) {
-            background-color: var(--color-cream-dark);
-        }
-
-        /* Profile Cards */
-        .profile-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .profile-card {
-            border: 1px solid var(--color-border);
-            padding: 1.5rem;
-            background-color: var(--color-cream);
-        }
-
-        .profile-header {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .profile-image {
-            width: 80px;
-            height: 80px;
-            border: 1px solid var(--color-border);
-            background-color: var(--color-cream-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 2rem;
-            color: var(--color-accent);
-        }
-
-        .profile-info h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .profile-info p {
-            font-size: 0.875rem;
-            color: var(--color-ink-light);
-            line-height: 1.4;
-        }
-
-        .profile-bio {
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* Expandable Bio */
-        .bio-toggle {
-            background: none;
-            border: none;
-            color: var(--color-ink);
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 0.875rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.5rem 0;
-            border-top: 1px solid var(--color-border);
-            width: 100%;
-            margin-top: 0.75rem;
-        }
-
-        .bio-toggle:hover {
-            color: var(--color-accent);
-        }
-
-        .bio-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .bio-content.expanded {
-            max-height: 500px;
-        }
-
-        .bio-content p {
-            padding-top: 0.75rem;
-            font-size: 0.875rem;
-            line-height: 1.6;
-            color: var(--color-ink-light);
-        }
-
-        .chevron-icon {
-            transition: transform 0.3s ease;
-            width: 16px;
-            height: 16px;
-        }
-
-        .chevron-icon.expanded {
-            transform: rotate(180deg);
-        }
-
-        /* Topics List */
-        .topics-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .topics-list li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--color-border);
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .topics-list li::before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            color: var(--color-accent);
-        }
-
-        .topics-list li:last-child {
-            border-bottom: none;
-        }
-
-        /* Subsection */
-        .subsection {
-            margin-top: 2rem;
-        }
-
-        .subsection-title {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--color-ink);
-        }
-
-        /* Links */
-        a {
-            color: var(--color-ink);
-            text-decoration: underline;
-            text-underline-offset: 2px;
-        }
-
-        a:hover {
-            color: var(--color-accent);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--color-ink);
-            color: var(--color-cream);
-            padding: 2rem 0;
-            margin-top: 0;
-        }
-
-        footer a {
-            color: var(--color-cream);
-            opacity: 0.85;
-        }
-
-        footer a:hover {
-            opacity: 1;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .footer-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.875rem;
-            text-decoration: none;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            border: 1px solid var(--color-border);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--color-ink);
-            color: var(--color-cream);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--color-ink-light);
-            color: var(--color-cream);
-        }
-
-        /* Utility */
-        .text-muted {
-            color: var(--color-ink-light);
-        }
-
-        .text-small {
-            font-size: 0.875rem;
-        }
-
-        .mt-2 { margin-top: 2rem; }
-        .mb-1 { margin-bottom: 1rem; }
-
-        /* Lucide icons */
-        [data-lucide] {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Schedule highlight */
-        .schedule-break {
-            background-color: var(--color-cream-dark);
-            font-style: italic;
-        }
-
-        /* Organizer compact grid */
-        .organizer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1.25rem;
-            margin-top: 2rem;
-        }
-
-        .organizer-card {
-            border: 1px solid var(--color-border);
-            padding: 1.25rem;
-            background-color: var(--color-cream);
-            text-align: center;
-        }
-
-        .organizer-card .profile-image {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 0.75rem;
-        }
-
-        .organizer-card h3 {
-            font-size: 1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .organizer-card p {
-            font-size: 0.8rem;
-            color: var(--color-ink-light);
-            line-height: 1.4;
-        }
-
-        /* Invited Speaker larger cards */
-        .speaker-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-    </style>
+    <script src="ascii-bg.js" defer></script>
 </head>
 <body>
 
@@ -532,8 +31,9 @@
 
     <!-- Hero Section -->
     <header class="hero">
+        <div class="hero-ascii-bg" id="heroAsciiBg"></div>
         <div class="container">
-            <p class="hero-subtitle">ICLR 2026 Workshop</p>
+            <p class="hero-subtitle">ICML 2026 Workshop</p>
             <h1 class="hero-title">Forecasting as a New Frontier<br/>of Intelligence</h1>
             <div class="hero-meta">
                 <span class="hero-meta-item">
@@ -542,11 +42,11 @@
                 </span>
                 <span class="hero-meta-item">
                     <i data-lucide="map-pin"></i>
-                    <span>Singapore</span>
+                    <span>Seoul, Korea</span>
                 </span>
                 <span class="hero-meta-item">
                     <i data-lucide="users"></i>
-                    <span>Hybrid Format</span>
+                    <span>Location TBD</span>
                 </span>
             </div>
         </div>
@@ -652,7 +152,7 @@
                 <div class="subsection">
                     <h3 class="subsection-title">Submission Guidelines</h3>
                     <div class="content-box">
-                        <p><strong>Format:</strong> Submissions should be up to 4 pages (excluding references and appendix) using the ICLR 2026 template.</p>
+                        <p><strong>Format:</strong> Submissions should be up to 4 pages (excluding references and appendix) using the ICML 2026 template.</p>
                         <p><strong>Anonymity:</strong> All submissions should be anonymized for double-blind review.</p>
                         <p><strong>Dual Submission:</strong> We welcome submissions of work that has been previously published or is under review elsewhere, with proper disclosure.</p>
                         <p><strong>Platform:</strong> Submissions will be handled through OpenReview.</p>
@@ -679,7 +179,7 @@
         <section id="schedule">
             <div class="container">
                 <h2 class="section-title">Workshop Schedule</h2>
-                <p class="mb-1">All times are in local Singapore time (SGT).</p>
+                <p class="mb-1">All times are in local Seoul time (KST).</p>
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -757,122 +257,120 @@
                 
                 <div class="speaker-grid">
                     <!-- Speaker 1 -->
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-image">
-                                <i data-lucide="user"></i>
-                            </div>
-                            <div class="profile-info">
-                                <h3>Rohan Alur</h3>
-                                <p>Bridgewater AIA</p>
-                            </div>
+                    <div class="speaker-card">
+                        <div class="speaker-image-col">
+                            <img src="img/rohan_alur.jpg" alt="Rohan Alur" />
                         </div>
-                        <button class="bio-toggle" onclick="toggleBio(this)">
-                            <i data-lucide="chevron-down" class="chevron-icon"></i>
-                            <span>View Bio</span>
-                        </button>
-                        <div class="bio-content">
-                            <p>Speaker biography coming soon.</p>
+                        <div class="speaker-info-col">
+                            <h3>Rohan Alur</h3>
+                            <p class="affiliation">Bridgewater AIA</p>
+                            <button class="speaker-bio-toggle" onclick="toggleSpeakerBio(this)">
+                                <i data-lucide="chevron-down" class="chevron-icon"></i>
+                                <span>View Bio</span>
+                            </button>
+                            <div class="speaker-bio-content">
+                                <p>Speaker biography coming soon.</p>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Speaker 2 -->
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-image">
+                    <div class="speaker-card">
+                        <div class="speaker-image-col">
+                            <div class="speaker-placeholder">
                                 <i data-lucide="user"></i>
                             </div>
-                            <div class="profile-info">
-                                <h3>Philip E. Tetlock</h3>
-                                <p>Good Judgement Project</p>
-                            </div>
                         </div>
-                        <button class="bio-toggle" onclick="toggleBio(this)">
-                            <i data-lucide="chevron-down" class="chevron-icon"></i>
-                            <span>View Bio</span>
-                        </button>
-                        <div class="bio-content">
-                            <p>Philip Tetlock is a renowned expert on forecasting and decision-making, author of "Superforecasting" and co-principal investigator of the Good Judgment Project.</p>
+                        <div class="speaker-info-col">
+                            <h3>Philip E. Tetlock</h3>
+                            <p class="affiliation">Good Judgement Project</p>
+                            <button class="speaker-bio-toggle" onclick="toggleSpeakerBio(this)">
+                                <i data-lucide="chevron-down" class="chevron-icon"></i>
+                                <span>View Bio</span>
+                            </button>
+                            <div class="speaker-bio-content">
+                                <p>Philip Tetlock is a renowned expert on forecasting and decision-making, author of "Superforecasting" and co-principal investigator of the Good Judgment Project.</p>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Speaker 3 -->
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-image">
+                    <div class="speaker-card">
+                        <div class="speaker-image-col">
+                            <div class="speaker-placeholder">
                                 <i data-lucide="user"></i>
                             </div>
-                            <div class="profile-info">
-                                <h3>Moritz Hardt</h3>
-                                <p>Max Planck Institute</p>
-                            </div>
                         </div>
-                        <button class="bio-toggle" onclick="toggleBio(this)">
-                            <i data-lucide="chevron-down" class="chevron-icon"></i>
-                            <span>View Bio</span>
-                        </button>
-                        <div class="bio-content">
-                            <p>Moritz Hardt is a director at the Max Planck Institute for Intelligent Systems and a leading researcher in machine learning theory, fairness, and robustness.</p>
+                        <div class="speaker-info-col">
+                            <h3>Moritz Hardt</h3>
+                            <p class="affiliation">Max Planck Institute</p>
+                            <button class="speaker-bio-toggle" onclick="toggleSpeakerBio(this)">
+                                <i data-lucide="chevron-down" class="chevron-icon"></i>
+                                <span>View Bio</span>
+                            </button>
+                            <div class="speaker-bio-content">
+                                <p>Moritz Hardt is a director at the Max Planck Institute for Intelligent Systems and a leading researcher in machine learning theory, fairness, and robustness.</p>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Speaker 4 -->
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-image">
+                    <div class="speaker-card">
+                        <div class="speaker-image-col">
+                            <div class="speaker-placeholder">
                                 <i data-lucide="user"></i>
                             </div>
-                            <div class="profile-info">
-                                <h3>Yoon Kim</h3>
-                                <p>MIT</p>
-                            </div>
                         </div>
-                        <button class="bio-toggle" onclick="toggleBio(this)">
-                            <i data-lucide="chevron-down" class="chevron-icon"></i>
-                            <span>View Bio</span>
-                        </button>
-                        <div class="bio-content">
-                            <p>Yoon Kim is an assistant professor at MIT working on natural language processing and deep learning.</p>
+                        <div class="speaker-info-col">
+                            <h3>Yoon Kim</h3>
+                            <p class="affiliation">MIT</p>
+                            <button class="speaker-bio-toggle" onclick="toggleSpeakerBio(this)">
+                                <i data-lucide="chevron-down" class="chevron-icon"></i>
+                                <span>View Bio</span>
+                            </button>
+                            <div class="speaker-bio-content">
+                                <p>Yoon Kim is an assistant professor at MIT working on natural language processing and deep learning.</p>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Speaker 5 -->
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-image">
+                    <div class="speaker-card">
+                        <div class="speaker-image-col">
+                            <div class="speaker-placeholder">
                                 <i data-lucide="user"></i>
                             </div>
-                            <div class="profile-info">
-                                <h3>James Zou</h3>
-                                <p>Stanford University</p>
-                            </div>
                         </div>
-                        <button class="bio-toggle" onclick="toggleBio(this)">
-                            <i data-lucide="chevron-down" class="chevron-icon"></i>
-                            <span>View Bio</span>
-                        </button>
-                        <div class="bio-content">
-                            <p>James Zou is an assistant professor of biomedical data science at Stanford, known for his work on machine learning and computational biology.</p>
+                        <div class="speaker-info-col">
+                            <h3>James Zou</h3>
+                            <p class="affiliation">Stanford University</p>
+                            <button class="speaker-bio-toggle" onclick="toggleSpeakerBio(this)">
+                                <i data-lucide="chevron-down" class="chevron-icon"></i>
+                                <span>View Bio</span>
+                            </button>
+                            <div class="speaker-bio-content">
+                                <p>James Zou is an assistant professor of biomedical data science at Stanford, known for his work on machine learning and computational biology.</p>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Speaker 6 -->
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="profile-image">
+                    <div class="speaker-card">
+                        <div class="speaker-image-col">
+                            <div class="speaker-placeholder">
                                 <i data-lucide="user"></i>
                             </div>
-                            <div class="profile-info">
-                                <h3>Robin Hanson</h3>
-                                <p>George Mason University</p>
-                            </div>
                         </div>
-                        <button class="bio-toggle" onclick="toggleBio(this)">
-                            <i data-lucide="chevron-down" class="chevron-icon"></i>
-                            <span>View Bio</span>
-                        </button>
-                        <div class="bio-content">
-                            <p>Robin Hanson is an economist and researcher known for his work on prediction markets and futarchy.</p>
+                        <div class="speaker-info-col">
+                            <h3>Robin Hanson</h3>
+                            <p class="affiliation">George Mason University</p>
+                            <button class="speaker-bio-toggle" onclick="toggleSpeakerBio(this)">
+                                <i data-lucide="chevron-down" class="chevron-icon"></i>
+                                <span>View Bio</span>
+                            </button>
+                            <div class="speaker-bio-content">
+                                <p>Robin Hanson is an economist and researcher known for his work on prediction markets and futarchy.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -980,7 +478,7 @@
             <div class="footer-content">
                 <div>
                     <p style="font-family: 'Libre Baskerville', serif; margin-bottom: 0.25rem;">Workshop on AI Forecasting</p>
-                    <p class="text-small" style="opacity: 0.7;">ICLR 2026 · Singapore</p>
+                    <p class="text-small" style="opacity: 0.7;">ICML 2026 · Seoul, Korea</p>
                 </div>
                 <div class="footer-links">
                     <a href="mailto:haifengxu@uchicago.edu" class="footer-link">
@@ -1006,10 +504,10 @@
             navLinks.classList.toggle('show');
         }
 
-        // Bio toggle
-        function toggleBio(button) {
-            const card = button.closest('.profile-card');
-            const content = card.querySelector('.bio-content');
+        // Speaker bio toggle
+        function toggleSpeakerBio(button) {
+            const card = button.closest('.speaker-card');
+            const content = card.querySelector('.speaker-bio-content');
             const chevron = button.querySelector('.chevron-icon');
             const span = button.querySelector('span');
             
@@ -1045,6 +543,7 @@
                 }
             });
         });
+
     </script>
 </body>
 </html>

@@ -635,3 +635,38 @@ footer a:hover {
 .chevron-icon.expanded {
     transform: rotate(180deg);
 }
+
+/* Program Committee */
+.committee-list {
+    column-count: 2;
+    column-gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    .committee-list {
+        column-count: 1;
+    }
+}
+
+.committee-member {
+    break-inside: avoid;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.committee-member:last-child {
+    border-bottom: none;
+}
+
+.committee-member .name {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.committee-member .role {
+    font-size: 0.825rem;
+    color: var(--color-ink-light);
+    line-height: 1.4;
+}

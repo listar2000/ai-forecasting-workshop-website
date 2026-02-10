@@ -36,7 +36,7 @@ const stockChart =
         // Prediction market box - right side (Kalshi-style)
 const marketBox = 
 `+-------------------------------+
-|  Will GPT-5 be released       |
+|  Will GPT-6 be released       |
 |  before July 2026?            |
 +---------------+---------------+
 |      YES      |      NO       |
